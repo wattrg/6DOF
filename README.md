@@ -1,6 +1,6 @@
 # 6DOF
-Purpose: Source code for PHYS3990 boomerang capstone project
-Author: Robert Watt
+Purpose: Source code for PHYS3990 boomerang capstone project  
+Author: Robert Watt  
 Date: 6/9/2019
 
 ## Dependancies

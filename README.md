@@ -20,3 +20,6 @@ Upon execution, a "trajectory.csv" file will be created in the folder of executi
 
 ## Trouble shooting/issues
 Please raise an issue on git or email wattrg@hotmail.com for assistance or bug reports.
+
+## Acknowledgments
+LuaBridge has been used by this project to facilitate the use of Lua scripts to change inputs without recompilation. LuaBridge can be found at https://github.com/vinniefalco/LuaBridge

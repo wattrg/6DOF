@@ -1,0 +1,4 @@
+
+../sixDOF.ex config_6DOF.lua
+
+python ../../plotting/plot.py 6DOF True

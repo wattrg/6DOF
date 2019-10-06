@@ -1,0 +1,4 @@
+
+../sixDOF.ex config_projectile.lua
+
+python ../../plotting/plot.py projectile

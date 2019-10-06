@@ -1,0 +1,164 @@
+\documentclass[11pt, twoside]{article}
+
+\usepackage[margin = 2cm]{geometry} % sets margins
+\setlength{\headheight}{14pt}
+\usepackage{fancyhdr} % for headers
+\usepackage{amsmath,amsthm} % math packages
+\usepackage{graphicx,float}% for importing and placing figures
+\graphicspath{./img/}
+\usepackage{titlesec} %for customizing headings
+\usepackage{genmpage} % for using minipages
+\usepackage{booktabs, multirow, multicol, array}
+\usepackage{multicol}
+\usepackage{subcaption}
+\usepackage[separate-uncertainty = true,multi-part-units=single]{siunitx}
+
+\usepackage{parskip}
+\usepackage{listings}
+\lstset{
+	breaklines = true
+	language = Python
+}
+
+
+
+%\setlength\parindent{0pt} % removes indent at beginning of paragraph
+
+\fancyhf{} %resests page numbering
+\pagestyle{fancy} %sets page style
+\lhead{6 DOF solver} % left header
+\rhead{Robert Watt - 44311513} % right header
+\cfoot{\thepage}
+
+\usepackage{hyperref}%Completely useless for hard copy, but pretty schmick nonetheless 
+\hypersetup{
+	colorlinks=True,
+	linkcolor=black,
+	filecolor=black,      
+	urlcolor=black,
+	citecolor=black,
+}
+
+\numberwithin{equation}{section}
+%\usepackage[backend=biber, labeldate=year]{biblatex}
+%\DeclareLanguageMapping{british}{british-apa}%\addbibresource{./bib.tex}
+%\setlength\bibitemsep{0.5\baselineskip}
+
+
+\titleformat{\section}{\bfseries}{\thesection.0}{0.5em}{} %Sets section header format
+\titleformat{\subsection}{\bfseries\small}{\thesubsection}{0.5em}{}
+
+\newcommand{\Appendix}{%set appendix header format (start the appendix 		section with \Appendix)
+	\appendix %begins the appendix section
+	\titleformat{\section}{\large\bfseries}{Appendix \thesection}{0.5em}{} %sets appendix header style
+	\titleformat{\subsection}{\bfseries}{Appendix \thesubsection}{0.5em}{} % sets sub appendix header style
+}
+
+\renewcommand{\vec}{\mathbf}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\begin{document}
+
+\section{Equations of Motion}
+The state of the object in question solved in body fixed coordinates. The velocity and angular velocity of the object is \(\vec{v}_b = \left[u \, v \, w\right]^T\), and \( \vec{\omega}_b = \left[ p \,  q \, r \right]^T \) respectively. The inertial (flat earth) reference frame is denoted as \(\vec{v}_I\), and the position of the centre of mass of the boomerang in the inertial frame is \(\vec{x}_I\) The moment of inertia is given as:
+
+\begin{align}
+	I = 
+	\begin{bmatrix}
+		I_{xx} & I_{xy} & I_{xz} \\
+		I_{yx} & I_{yy} & I_{yz} \\
+		I_{zx} & I_{zy} & I_{zz}
+	\end{bmatrix}
+\end{align}
+
+Newton's second law applied to the body fixed coordinates gives
+
+\begin{align}
+	\vec{F} = m \frac{\mathrm{d} \vec{v}_b }{\mathrm{d}t} + m\vec{\omega}_b \times \vec{v}_b & & \vec{M} =\frac{\mathrm{d}\vec{H}_b}{\mathrm{d}t} + \vec{\omega}_b \times \vec{H}_b
+\end{align}
+
+Where \(\vec{H}_b\), the anglular momentum is given by
+
+\begin{align}
+	\vec{H}_b = I\vec{\omega}_b
+\end{align}
+
+Expanding and rearranging the transnational equations of motion,
+
+\begin{align}
+	\frac{\mathrm{d}}{\mathrm{d}t}
+	\begin{bmatrix}
+		u \\ v \\ w
+	\end{bmatrix}
+	=
+	\frac{1}{m}
+	\begin{bmatrix}
+		F_x \\ F_y \\ F_z
+	\end{bmatrix}
+	-
+	\begin{bmatrix}
+		qw - rv \\ ru -pw \\ pv - qu
+	\end{bmatrix}
+\end{align}
+
+Expanding and rearranging the rotational equations of motion:
+
+\begin{align}
+	I \frac{\mathrm{d}\vec{\omega}}{\mathrm{d}t} &= \vec{M} - \vec{\omega} \times (I\vec{\omega})\\
+	\frac{\mathrm{d}}{\mathrm{d}t}
+	\begin{bmatrix}
+		p \\ q \\ r
+	\end{bmatrix} &= 
+	I^{-1} \left( \begin{bmatrix}
+		M_x \\ M_y \\ M_z
+	\end{bmatrix}	 
+	- \left[\begin{array}{c} q \left(I_{zx} p+I_{zy} q + I_{zz} r\right)-r \left(I_{yx} p + I_{yy} q + I_{yz} r \right)\\
+	 r \left(I_{xx} p + I_{xy} q + I_{xz} r \right) - p\left(I_{zx} p + I_{zy} q + I_{zz} r \right)\\
+	  p \left(I_{yx} p + I_{yy} q + I_{yz} r \right) - q\left(I_{xx} p + I_{xy}  q + I_{xz} r \right) \end{array}\right]
+ \right)
+\end{align}
+
+Note that \(I^{-1}\) is constant in time, and so can be calculated ahead of time, reducing computation.
+
+The transformation matrix between the body fixed frame, and the body fixed frame at the initial state is given by \(T\)
+
+\begin{align}
+	T = 
+	\begin{bmatrix}
+		\cos\theta \cos\psi & \cos\theta \sin\psi & -\sin\theta \\
+		-\cos\phi \sin\psi + \sin\phi \sin\theta \cos\psi & \cos\phi \cos\psi + \sin\phi \sin\theta \cos\psi & \sin\phi \cos\theta \\
+		\sin\phi \sin\psi + \cos\phi \sin\theta \cos\psi & \sin\phi \cos\psi + \cos\phi \sin\theta \cos\psi & \cos\phi \cos\theta
+	\end{bmatrix}
+\end{align}
+
+Thus a vector in the inertial frame can be converted into the body fixed frame by the successive transformation \(T_0 T\), where \(T_0\) is \(T\) evaluated at the initial state. The transformation can be applied in reverse by inverting \(T\). Since \(T\) is a unitary matrix, its inverse can be evaluated by taking its transpose.
+
+The primary variables determined during the integration are \(\vec{v}_b\), \(\vec{\omega}_b\) and \(\vec{\varepsilon}\). From these, the velocity and position in the inertial frame are also calculated.
+
+
+\section{Aerodynamics}
+
+The direction in which drag acts (in the body fixed frame) is opposite to the direction of motion (in the body fixed frame), \(-\vec{v}_b\).
+
+To determine the direction of lift, we need 3 constraints, one for each component of lift. These constraints are:
+\begin{itemize}
+	\item Lift and drag act at right angles to each other, so \(\hat{\vec{L}} \cdot \hat{\vec{D}} = 0\)
+	\item The lift, drag, and the \(z\) axis of the body fitted reference frame are co-planar (this ensures that as the body rolls the lift force also rotates), so \(\hat{\vec{z}} \cdot \left(\hat{\vec{L}} \times \hat{\vec{D}}\right)=0\)
+	\item A constraint on the length. Since ensuring unit length introduces non-linear terms to the set of equations, so we will introduce a dummy constraint, then scale the vector afterwards to ensure unit length, so \(L_1 + L_2 + L_3 = 1\).
+\end{itemize}
+
+Solving for the 3 components of the lift ``unit" vector, with \(\hat{\vec{z}} = \begin{bmatrix}
+0 & 0 & 1
+\end{bmatrix}\) gives
+
+\begin{align}
+	\hat{\vec{L}} = 
+	\begin{bmatrix}
+		-\frac{(D_1D_3)}{(D_1^2 - D_3D_1 + D_2^2 - D_3D_2)}\\
+      -\frac{(D_2D_3)}{(D_1^2 - D_3D_1 + D_2^2 - D_3D_2)}\\
+ \frac{(D_1^2 + D_2^2)}{(D_1^2 - D_3D_1 + D_2^2 - D_3D_2)}
+	\end{bmatrix}
+\end{align}
+
+\end{document}

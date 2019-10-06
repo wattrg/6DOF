@@ -1,0 +1,4 @@
+
+../sixDOF.ex config_boomerang.lua
+
+python ../../plotting/plot.py boomerang True

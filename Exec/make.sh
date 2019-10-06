@@ -1,4 +1,4 @@
-
+#!/bin/sh
 
 g++ ../Source/main.cpp ../Source/Matrix3.cpp ../Source/Vector3.cpp        \
 ../Source/Projectile.cpp ../Source/DOF6.cpp ../Source/TimeIntegration.cpp \

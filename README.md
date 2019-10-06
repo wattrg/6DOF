@@ -4,7 +4,7 @@ Author: Robert Watt
 Date: 6/9/2019
 
 ## Dependancies
-The only external dependancy required for full functionality is Python (3.7 works, earlier versions may work).
+The only external dependancies required for full functionality is Python (3.7 works, earlier versions may work), and your favourite C++ compiler. I recommend g++ unless you want to modify make.sh to be consistant with your compiler
 
 ## Compilation
 To compile on Linux, 

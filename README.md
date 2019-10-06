@@ -18,4 +18,5 @@ Within "Exec" there is a folder for each test case, currently 6DOF, Boomerang, a
 
 Upon execution, a "trajectory.csv" file will be created in the folder of execution. A python script will then plot the data in this csv file, and save the results in "../../../Final_Report/img/(6DOF or boomerang or projectile) depending on which case is being run. Make sure these folders exist (Note that Final_Report is a folder on the same level as the repo, and is external to the repo).
 
-## Trouble shooting
+## Trouble shooting/issues
+Please raise an issue on git or email wattrg@hotmail.com for assistance or bug reports.

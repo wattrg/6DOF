@@ -2,10 +2,10 @@
 
 -- ======================= simulation parameters ===================================
 dt = 1e-4                             -- seconds
-solver = 1                            -- 1: euler, 2: predictor-corrector, 3: RK4
+solver = 2                            -- 1: euler, 2: predictor-corrector, 3: RK4
 start_time = 0.0                      -- sim start time
 stop_time = 10                        -- maximum stop time
-file_rate = 1                         -- frequency of plotting data
+file_rate = 10                         -- frequency of plotting data
 print_rate = 0                        -- frequency of writing data to screen
 
 

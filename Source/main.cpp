@@ -109,11 +109,12 @@ int main (int argc, char *argv[]) {
         }  
 
         if (print_rate != 0 && Nt % print_rate == 0){
-            std::cout << "t = " << time << std::endl;
-            std::cout << "body fixed velocity: "; S.vel.print();
-            std::cout << "inertial velocity: "; S.inert_vel.print();
-            std::cout << "position: "; S.inert_pos.print();
-            std::cout << std::endl;
+            //std::cout << "t = " << time << std::endl;
+            //std::cout << "body fixed velocity: "; S.vel.print();
+            //std::cout << "inertial velocity: "; S.inert_vel.print();
+            std::cout << "angular velocity: "; S.omega.print();
+            //std::cout << "position: "; S.inert_pos.print();
+            //std::cout << std::endl;
         }     
     }
 

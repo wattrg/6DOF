@@ -9,6 +9,6 @@ void advance (State& S, Projectile & B, double dt, int solver, bool do_aero, int
 
 void euler_update (State & S, Projectile & B, double dt, bool do_aero, int do_grav, bool do_DOF, int nFoils);
 void improved_euler (State & S, Projectile& B, double dt, bool do_aero, int do_grav, bool do_DOF, int nFoils);
-void RK4 (State & S, Projectile B, double dt, bool do_aero, int do_grav, bool do_DOF);
+void RK4 (State & S, Projectile& B, double dt, bool do_aero, int do_grav, bool do_DOF, int nFoils);
 
 #endif

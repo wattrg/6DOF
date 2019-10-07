@@ -1,7 +1,7 @@
 -- configuration file for projectile motion
 
 -- ======================= simulation parameters ===================================
-dt = 5e-5 
+dt = 1e-4 
 solver = 2                            -- 1: euler
 start_time = 0.0                      -- sim start time
 stop_time = 5                       -- maximum stop time
@@ -27,10 +27,10 @@ arm_length = 0.3
 
 
 -- =========================== Initial Conditions ====================================
-vel_init   = Vector3 (25.0, 0.0 , 0.0) -- m/s initial velocity
+vel_init   = Vector3 (30.0, 0.0 , 0.0) -- m/s initial velocity
 pos_init   = Vector3 (0.0 , 0.0 , 2.0) -- m   initial position
-omega_init = Vector3 (0.0 , 0.0 , 10.0) -- rad/s initial spin rate
-euler_init = Vector3 (0.0 , -0.1, 0.0) -- rad initial euler angles
+omega_init = Vector3 (0.0 , 0.0 , 50.0) -- rad/s initial spin rate
+euler_init = Vector3 (0.5 , -0.2, 1.2) -- rad initial euler angles
 -- ============================== Debug/Verification ==================================
 do_aero = true
 do_grav = 1
